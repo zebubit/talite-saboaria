@@ -73,12 +73,13 @@
   }
   header.rolou{border-bottom-color:var(--linha)}
   .barra{display:flex;align-items:center;gap:20px;padding-top:16px;padding-bottom:16px}
-  .marca{font-family:'Playfair Display',serif;font-size:24px;letter-spacing:.16em;color:var(--verde);text-decoration:none;flex-shrink:0}
+  .marca{font-family:'Playfair Display',serif;font-size:24px;letter-spacing:.16em;color:var(--verde);text-decoration:none;flex-shrink:0;order:2;text-align:right}
   .marca span{display:block;font-family:Inter,sans-serif;font-size:8.5px;letter-spacing:.3em;color:var(--ouro);text-transform:uppercase;margin-top:1px}
-  nav{margin-left:auto;display:flex;gap:30px}
+  nav{order:1;margin-right:auto;display:flex;gap:30px}
   nav a{display:flex;align-items:center;min-height:44px;font-size:13px;color:var(--tinta-2);text-decoration:none;transition:color .2s}
   nav a:hover{color:var(--verde)}
-  @media(max-width:880px){nav{display:none}.btn-sacola{margin-left:auto}}
+  .btn-sacola{order:3}
+  @media(max-width:880px){nav{display:none}.btn-sacola{order:1;margin-right:auto}}
 
   .btn-sacola{
     display:flex;align-items:center;gap:8px;background:var(--verde);color:var(--linho);
