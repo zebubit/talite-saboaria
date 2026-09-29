@@ -8,6 +8,7 @@ const LOJA = {
   whatsappVisivel: "(34) 99859-6811",
   instagram: "https://instagram.com/talite.saboaria",
   arroba: "@talite.saboaria",
+  tiktok: "https://www.tiktok.com/@saboaria.talit",
   cidade: "Uberaba, MG"
 };
 
