@@ -228,11 +228,43 @@
     border-bottom:1px solid rgba(169,138,84,.4);padding-bottom:3px;
   }
 
-  /* ---------- galeria ---------- */
-  .galeria{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:clamp(32px,4vw,48px)}
-  .galeria img{flex:1 1 100%;max-width:100%;height:auto;aspect-ratio:5/4;object-fit:cover;box-shadow:var(--sombra)}
-  @media(min-width:700px){.galeria img{flex-basis:calc(50% - 8px);max-width:calc(50% - 8px)}}
-  @media(min-width:1024px){.galeria img{flex-basis:calc(33.333% - 11px);max-width:calc(33.333% - 11px)}}
+  /* ---------- galeria (carrossel) ---------- */
+  .carro{position:relative;margin-top:clamp(28px,4vw,44px)}
+  .carro-pista{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+    padding:6px max(20px,calc((100vw - 1180px)/2 + 24px)) 18px;scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+  .carro-pista::-webkit-scrollbar{display:none}
+  /* cada foto mantem a proporcao original, todas na mesma altura, sem cortar nada */
+  .carro-pista{--alt:clamp(360px,62vw,520px);align-items:center}
+  .carro-item{flex:0 0 auto;scroll-snap-align:center;margin:0;position:relative;cursor:zoom-in;
+    background:var(--papel);box-shadow:var(--sombra);border:0;padding:0;font:inherit;text-align:left;overflow:hidden}
+  .carro-item img{display:block;aspect-ratio:var(--r);height:min(var(--alt),calc(88vw / var(--r)));width:auto;object-fit:contain;transition:transform .9s cubic-bezier(.2,.7,.3,1)}
+  .carro-item::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(38,36,31,.06);pointer-events:none}
+  @media(hover:hover){.carro-item:hover img{transform:scale(1.02)}}
+  .carro-item:focus-visible{outline:2px solid var(--ouro);outline-offset:3px}
+  @media(min-width:1024px){.carro-pista{--alt:520px}}
+  .carro-barra{display:flex;align-items:center;gap:18px;margin-top:6px}
+  .carro-prog{flex:1;height:2px;background:var(--linha);position:relative;overflow:hidden}
+  .carro-prog i{position:absolute;left:0;top:0;bottom:0;width:20%;background:var(--ouro);transition:left .35s ease,width .35s ease}
+  .carro-cont{font-size:12px;letter-spacing:.2em;color:var(--tinta-2);min-width:64px;text-align:right;font-variant-numeric:tabular-nums}
+  .carro-set{display:flex;gap:10px}
+  .carro-set button,.lb-btn{width:46px;height:46px;border-radius:50%;border:1px solid var(--linha);background:var(--papel);color:var(--verde);
+    display:grid;place-items:center;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+  .carro-set button:hover,.lb-btn:hover{background:var(--verde);color:#fff;border-color:var(--verde)}
+  .carro-set button:disabled{opacity:.35;cursor:default;background:var(--papel);color:var(--verde);border-color:var(--linha)}
+  .carro-set svg,.lb-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .carro-dica{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-2)}
+  @media(min-width:700px){.carro-dica{display:none}}
+  .carro .env{margin-top:8px}
+  /* tela cheia */
+  .lb{position:fixed;inset:0;z-index:200;background:rgba(24,26,22,.94);display:none;align-items:center;justify-content:center;flex-direction:column;padding:18px}
+  .lb.abre{display:flex}
+  .lb img{max-width:min(94vw,820px);max-height:78vh;width:auto;height:auto;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.5);touch-action:pan-y}
+  .lb-leg{color:#e9e4d8;font-size:14px;line-height:1.5;text-align:center;max-width:56ch;margin-top:16px;min-height:2.6em}
+  .lb-cont{color:var(--ouro-cl);font-size:12px;letter-spacing:.24em;margin-top:6px}
+  .lb-btn{position:absolute;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25);color:#fff}
+  .lb-fecha{top:16px;right:16px}.lb-ant{left:14px;top:50%;margin-top:-23px}.lb-prox{right:14px;top:50%;margin-top:-23px}
+  @media(max-width:600px){.lb-ant,.lb-prox{top:auto;bottom:22px;margin:0}.lb-ant{left:calc(50% - 60px)}.lb-prox{right:calc(50% - 60px)}.lb-cont{margin-bottom:64px}}
+  @media (prefers-reduced-motion:reduce){.carro-pista{scroll-behavior:auto}.carro-item img{transition:none}}
 
   /* ---------- sacola ---------- */
   .veu{position:fixed;inset:0;background:rgba(38,36,31,.5);opacity:0;pointer-events:none;transition:opacity .3s;z-index:90}
@@ -485,15 +517,30 @@
       <div class="rotulo">Do jeito que chega</div>
       <h2 class="titulo">Cada caixa sai <em>montada à mão</em></h2>
     </div>
-    <div class="galeria rv">
-      <img loading="lazy" src="img/p02.jpg" alt="Kit Talité com sabonetes e sais de banho" width="1280" height="1024">
-      <img loading="lazy" src="img/p03.jpg" alt="Caixa com três sabonetes artesanais" width="1280" height="1024">
-      <img loading="lazy" src="img/p06.jpg" alt="Kit com sabonetes e sabonete líquido" width="1280" height="1024">
-      <img loading="lazy" src="img/p07.jpg" alt="Kit presente com laço verde" width="1280" height="1024">
-      <img loading="lazy" src="img/p09.jpg" alt="Sabonetes artesanais em caixa de madeira" width="1280" height="1024">
+  </div>
+  <div class="carro rv" id="carro" aria-roledescription="carrossel" aria-label="Fotos dos sabonetes e kits">
+    <div class="carro-pista" id="carro-pista" tabindex="0"></div>
+    <div class="env">
+      <div class="carro-barra">
+        <div class="carro-set">
+          <button type="button" id="carro-ant" aria-label="Foto anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button type="button" id="carro-prox" aria-label="Próxima foto"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+        <div class="carro-prog" aria-hidden="true"><i id="carro-prog"></i></div>
+        <span class="carro-dica">Deslize</span>
+        <span class="carro-cont" id="carro-cont" aria-live="polite">01 / 01</span>
+      </div>
     </div>
   </div>
 </section>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button class="lb-btn lb-fecha" id="lb-fecha" type="button" aria-label="Fechar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="lb-btn lb-ant" id="lb-ant" type="button" aria-label="Foto anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <img id="lb-img" alt="">
+  <button class="lb-btn lb-prox" id="lb-prox" type="button" aria-label="Próxima foto"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  <div class="lb-leg" id="lb-leg"></div><div class="lb-cont" id="lb-cont"></div>
+</div>
 
 <!-- ================= ONDE COMPRAR ================= -->
 <section id="lojas">
@@ -565,7 +612,7 @@
   </button>
 </div>
 
-<script src="dados.js?v=7"></script>
+<script src="dados.js?v=10"></script>
 <script>
 (function(){
   const dinheiro = v => 'R$ ' + v.toFixed(2).replace('.', ',');
@@ -812,6 +859,48 @@
   /* ---------- linha no topo ao rolar ---------- */
   const cab = document.getElementById('topo');
   addEventListener('scroll', () => cab.classList.toggle('rolou', scrollY > 10), {passive:true});
+})();
+
+/* ---------- carrossel + tela cheia ---------- */
+(function(){
+  const pista=document.getElementById('carro-pista'); if(!pista||typeof GALERIA==='undefined') return;
+  const n=GALERIA.length, p2=v=>String(v).padStart(2,'0');
+  GALERIA.forEach((g,i)=>{
+    const b=document.createElement('button'); b.type='button'; b.className='carro-item';
+    b.setAttribute('aria-label','Ampliar foto '+(i+1)+' de '+n);
+    b.innerHTML='<img src="'+g.src+'" alt="'+g.alt.replace(/"/g,'&quot;')+'" style="--r:'+g.r+'"'+(i>4?' loading="lazy"':'')+' decoding="async">';
+    b.addEventListener('click',()=>abrir(i)); pista.appendChild(b);
+  });
+  const itens=[...pista.children], ant=document.getElementById('carro-ant'), prox=document.getElementById('carro-prox'),
+        cont=document.getElementById('carro-cont'), prog=document.getElementById('carro-prog');
+  function atual(){ const c=pista.scrollLeft+pista.clientWidth/2; let m=0,d=1e9;
+    itens.forEach((el,i)=>{const dd=Math.abs(el.offsetLeft+el.offsetWidth/2-c); if(dd<d){d=dd;m=i}}); return m; }
+  function atualiza(){
+    const i=atual(), max=pista.scrollWidth-pista.clientWidth;
+    cont.textContent=p2(i+1)+' / '+p2(n);
+    const w=Math.max(8,pista.clientWidth/pista.scrollWidth*100);
+    prog.style.width=w+'%'; prog.style.left=(max>0?pista.scrollLeft/max*(100-w):0)+'%';
+    ant.disabled=pista.scrollLeft<=2; prox.disabled=pista.scrollLeft>=max-2;
+  }
+  function ir(dir){ const i=Math.min(n-1,Math.max(0,atual()+dir)); pista.scrollTo({left:itens[i].offsetLeft-(pista.clientWidth-itens[i].offsetWidth)/2,behavior:'smooth'}); }
+  ant.onclick=()=>ir(-1); prox.onclick=()=>ir(1);
+  pista.addEventListener('scroll',()=>requestAnimationFrame(atualiza),{passive:true});
+  pista.addEventListener('keydown',e=>{ if(e.key==='ArrowRight'){e.preventDefault();ir(1)} if(e.key==='ArrowLeft'){e.preventDefault();ir(-1)} });
+  addEventListener('resize',atualiza); atualiza();
+
+  const lb=document.getElementById('lb'), li=document.getElementById('lb-img'), ll=document.getElementById('lb-leg'), lc=document.getElementById('lb-cont');
+  let cur=0, foco=null;
+  function mostra(i){ cur=(i+n)%n; li.src=GALERIA[cur].src; li.alt=GALERIA[cur].alt; ll.textContent=GALERIA[cur].alt; lc.textContent=p2(cur+1)+' / '+p2(n); }
+  function abrir(i){ foco=document.activeElement; mostra(i); lb.classList.add('abre'); document.body.style.overflow='hidden'; document.getElementById('lb-fecha').focus(); }
+  function fechar(){ lb.classList.remove('abre'); document.body.style.overflow=''; const el=itens[cur]; if(el){ pista.scrollTo({left:el.offsetLeft-(pista.clientWidth-el.offsetWidth)/2,behavior:'auto'}); } if(foco) foco.focus(); }
+  document.getElementById('lb-fecha').onclick=fechar;
+  document.getElementById('lb-ant').onclick=()=>mostra(cur-1);
+  document.getElementById('lb-prox').onclick=()=>mostra(cur+1);
+  lb.addEventListener('click',e=>{ if(e.target===lb) fechar(); });
+  addEventListener('keydown',e=>{ if(!lb.classList.contains('abre')) return;
+    if(e.key==='Escape') fechar(); if(e.key==='ArrowLeft') mostra(cur-1); if(e.key==='ArrowRight') mostra(cur+1); });
+  let x0=null; li.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
+  li.addEventListener('touchend',e=>{ if(x0===null) return; const dx=e.changedTouches[0].clientX-x0; if(Math.abs(dx)>50) mostra(cur+(dx<0?1:-1)); x0=null; });
 })();
 </script>
 </body>

@@ -105,9 +105,29 @@ const LEMBRANCINHAS_MINIMO = 30;
    entao da pra ir preenchendo aos poucos sem quebrar nada.
    icone: shopee | tiktok | mercadolivre | instagram | loja  */
 const LOJAS = [
-  /* Desligada ate a loja existir: troque a url pelo link real e descomente.
-  { nome:"Shopee", chamada:"Loja oficial, com frete do app", icone:"shopee", cor:"#EE4D2D", url:"https://shopee.com.br/SUALOJA" }
-  */
+  { nome:"Shopee", chamada:"Compre também na nossa loja da Shopee", icone:"shopee", cor:"#EE4D2D", url:"https://br.shp.ee/VhSKD3hy" }
 ];
 
 const OCASIOES = ["Casamentos", "Chá de bebê", "Batizados", "Aniversários", "Eventos corporativos"];
+
+/* Galeria (carrossel). Troque, apague ou reordene as fotos aqui. */
+const GALERIA = [
+  { src:"img/galeria/g01.jpg", r:1.0, alt:"Sabonete artesanal com flores secas ao lado de um pote de sais de banho Talité" },
+  { src:"img/galeria/g02.jpg", r:0.75, alt:"Caixa Talité com sabonete, frasco de sais de banho com etiqueta e bucha vegetal" },
+  { src:"img/galeria/g03.jpg", r:0.75, alt:"Quatro sabonetes em forma de rosa sobre tábua de madeira" },
+  { src:"img/galeria/g04.jpg", r:0.75, alt:"Sabonetes dourados com brilho sobre saboneteira de madeira" },
+  { src:"img/galeria/g05.jpg", r:0.75, alt:"Dois sabonetes lilás em molde arredondado" },
+  { src:"img/galeria/g06.jpg", r:0.75, alt:"Sabonete transparente em forma de rosa, em tom verde-limão" },
+  { src:"img/galeria/g07.jpg", r:0.75, alt:"Sabonete escuro em caixa com fita Sabonetes naturais" },
+  { src:"img/galeria/g08.jpg", r:0.75, alt:"Bandeja de madeira com sabonetes redondos em amarelo, lilás, verde e roxo" },
+  { src:"img/galeria/g09.jpg", r:0.75, alt:"Dois sabonetes cinza sobre saboneteira de madeira" },
+  { src:"img/galeria/g10.jpg", r:0.75, alt:"Sabonete rosa em forma de rosa, segurado na mão" },
+  { src:"img/galeria/g11.jpg", r:0.75, alt:"Kit presente com sabonete azul, frasco de sais e bucha vegetal" },
+  { src:"img/galeria/g12.jpg", r:0.75, alt:"Sabonete transparente em forma de girassol" },
+  { src:"img/galeria/g13.jpg", r:0.8602, alt:"Sabonete Talité sobre pedra escura com colher de madeira e flores secas" },
+  { src:"img/p02.jpg", r:1.25, alt:"Kit Talité com sabonetes e sais de banho" },
+  { src:"img/p03.jpg", r:1.25, alt:"Caixa com três sabonetes artesanais" },
+  { src:"img/p06.jpg", r:1.25, alt:"Kit com sabonetes e sabonete líquido" },
+  { src:"img/p07.jpg", r:1.25, alt:"Kit presente com laço verde" },
+  { src:"img/p09.jpg", r:1.25, alt:"Sabonetes artesanais em caixa de madeira" }
+];
