@@ -105,7 +105,7 @@ const LEMBRANCINHAS_MINIMO = 30;
    entao da pra ir preenchendo aos poucos sem quebrar nada.
    icone: shopee | tiktok | mercadolivre | instagram | loja  */
 const LOJAS = [
-  { nome:"Shopee", chamada:"Compre também na nossa loja da Shopee", icone:"shopee", cor:"#EE4D2D", url:"https://br.shp.ee/VhSKD3hy" }
+  { nome:"Shopee", chamada:"Compre também na nossa loja da Shopee", icone:"shopee", cor:"#EE4D2D", url:"" }
 ];
 
 const OCASIOES = ["Casamentos", "Chá de bebê", "Batizados", "Aniversários", "Eventos corporativos"];
