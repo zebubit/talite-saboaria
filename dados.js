@@ -57,20 +57,14 @@ const TODOS_AROMAS = AROMAS.flatMap(g => g.itens.map(i => i.nome));
 
 /* aroma: true = o cliente escolhe o aroma ao adicionar na sacola */
 const PRODUTOS = [
-  { id:"premium", nome:"Sabonete Premium",     medida:"100 g",  preco:16.90, aroma:true,
+  { id:"premium", nome:"Sabonete Personalizado", medida:"100 g", preco:19.90, aroma:true,
     desc:"Base enriquecida e acabamento mais refinado, para um banho especial." },
-  { id:"terap",   nome:"Sabonete Terapêutico", medida:"100 g",  preco:18.90, aroma:true,
-    desc:"Formulado com foco no efeito da aromaterapia sobre o corpo e a mente." },
   { id:"esfol",   nome:"Sabonete Esfoliante",  medida:"100 g",  preco:17.90, aroma:true,
     desc:"Textura que renova a pele no banho, sem agredir." },
-  { id:"facial",  nome:"Sabonete Facial",      medida:"90 g",   preco:19.90, aroma:true,
-    desc:"Mais suave, pensado para a pele do rosto." },
   { id:"luxo",    nome:"Barra Luxo Decorada",  medida:"120 g",  preco:22.90, aroma:true,
     desc:"Barra maior, com acabamento decorado. Bonita de deixar à vista." },
-  { id:"liquido", nome:"Sabonete Líquido",     medida:"250 ml", preco:29.90, aroma:true,
+  { id:"liquido", nome:"Sabonete Líquido",     medida:"250 ml", preco:39.90, aroma:true,
     desc:"A mesma essência em versão líquida, com válvula pump." },
-  { id:"espuma",  nome:"Espuma de Banho",      medida:"150 ml", preco:34.90, aroma:true,
-    desc:"Espuma densa e perfumada para transformar o banho em ritual." },
   { id:"sais",    nome:"Sais de Banho",        medida:"250 g",  preco:24.90, aroma:true,
     desc:"Para dissolver na água morna e relaxar de verdade." },
   { id:"escalda", nome:"Escalda-pés",          medida:"250 g",  preco:22.90, aroma:true,
