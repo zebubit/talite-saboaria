@@ -123,6 +123,50 @@
   .hero-legenda b{font-family:'Playfair Display',serif;font-size:17px;color:var(--verde);font-weight:500}
   .hero-legenda i{width:4px;height:4px;border-radius:50%;background:var(--ouro);display:inline-block}
 
+  /* ---------- abertura: a foto cresce até ocupar a tela conforme rola ---------- */
+  .abre{position:relative;background:var(--linho);padding:0;overflow:visible}
+  .abre-fixo{position:relative;height:100svh;min-height:560px;overflow:hidden;display:grid;place-items:center}
+  html.abre-on .abre{height:260svh}
+  html.abre-on .abre-fixo{position:sticky;top:0}
+  .abre-titulo{position:absolute;left:0;right:0;top:clamp(110px,15vh,170px);text-align:center;z-index:2;padding:0 20px;will-change:transform,opacity}
+  .abre-titulo .rotulo{justify-content:center;margin-bottom:18px}
+  .abre-titulo .rotulo::after{content:"";width:34px;height:1px;background:var(--ouro);flex-shrink:0}
+  .abre h1{font-size:clamp(46px,8.4vw,128px);line-height:.98;letter-spacing:-.025em;color:var(--tinta)}
+  .abre h1 em{font-style:italic;color:var(--verde)}
+  .abre-foto{position:absolute;inset:0;z-index:1;
+    clip-path:inset(var(--ct,58%) var(--cl,36%) var(--cb,6%) var(--cl,36%) round var(--cr,999px 999px 4px 4px));
+    will-change:clip-path}
+  .abre-foto img{width:100%;height:100%;object-fit:cover;object-position:center 45%;transform:scale(var(--z,1.18));will-change:transform}
+  .abre-foto::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(20,24,18,.62),rgba(20,24,18,.08) 55%);opacity:var(--esc,0)}
+  .abre-frases{position:absolute;left:0;right:0;bottom:clamp(70px,13vh,130px);z-index:3;text-align:center;color:#FBF8F2;padding:0 24px;pointer-events:none}
+  .abre-frase{position:absolute;left:0;right:0;bottom:0;padding:0 24px;opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+  .abre-frase.on{opacity:1;transform:none}
+  .abre-frase b{display:block;font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(34px,5.4vw,76px);line-height:1.04;letter-spacing:-.02em}
+  .abre-frase b em{font-style:italic}
+  .abre-frase span{display:block;margin-top:14px;font-size:11px;letter-spacing:.32em;text-transform:uppercase;opacity:.85}
+  .abre-frase .hero-acoes{margin-top:26px;pointer-events:auto;justify-content:center}
+  .abre-frase:not(.on) .hero-acoes{pointer-events:none}
+  .abre-frase .btn-claro{border-color:rgba(251,248,242,.7);color:#FBF8F2}
+  .abre-frase .btn-claro:hover{background:#FBF8F2;color:var(--verde)}
+  .abre-frase .btn-linho{background:#FBF8F2;color:var(--verde)}
+  .abre-dica{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--tinta-2);display:flex;flex-direction:column;align-items:center;gap:8px;transition:opacity .4s}
+  .abre-dica i{width:1px;height:34px;background:linear-gradient(var(--ouro),transparent);animation:dica 2s ease-in-out infinite}
+  @keyframes dica{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+  .abre-num{position:absolute;top:clamp(96px,13vh,140px);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--tinta-2);z-index:2}
+  .abre-num.e{left:clamp(20px,4vw,56px)}.abre-num.d{right:clamp(20px,4vw,56px)}
+  /* sem JS ou com menos movimento: foto inteira, primeira frase visível */
+  html:not(.abre-on) .abre-foto{clip-path:none}
+  html:not(.abre-on) .abre-foto img{transform:none}
+  html:not(.abre-on) .abre-foto::after{opacity:1}
+  html:not(.abre-on) .abre-titulo,html:not(.abre-on) .abre-dica,html:not(.abre-on) .abre-num{display:none}
+  html:not(.abre-on) .abre-frase:last-child{opacity:1;transform:none}
+  @media(max-width:880px){
+    .abre-num{display:none}
+    .abre-titulo{top:clamp(96px,14svh,130px)}
+    .abre-frases{bottom:calc(170px + env(safe-area-inset-bottom))}
+    .abre-dica{bottom:calc(150px + env(safe-area-inset-bottom))}
+  }
+
   /* ---------- fila de valores ---------- */
   .valores{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--linha);border:1px solid var(--linha);margin-top:clamp(56px,8vw,88px)}
   .valor{background:var(--linho);padding:26px 22px;text-align:center}
@@ -136,16 +180,21 @@
   .linha-cab h3{font-size:clamp(23px,3vw,31px);color:var(--verde)}
   .linha-cab span{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ouro);margin-left:auto}
   .linha-resumo{font-size:15px;color:var(--tinta-2);max-width:62ch;margin-bottom:26px;font-style:italic}
-  .aromas{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:1px;background:var(--linha);border:1px solid var(--linha)}
-  .aroma{background:var(--linho);padding:20px 22px;transition:background .25s}
+  /* bordas em cada item (e não fundo pintado atrás): linha incompleta não deixa casa vazia colorida */
+  /* fileiras equilibradas: a última, se incompleta, fica centralizada (6 = 3+3, 5 = 3+2, 7 = 4+3) */
+  .aromas{display:flex;flex-wrap:wrap;justify-content:center;padding:1px 0 0 1px}
+  .aromas .aroma{flex:0 0 calc(100% / var(--cols,3) + 1px)}
+  @media(max-width:1023px){.aromas .aroma{flex-basis:calc(50% + 1px)}}
+  @media(max-width:600px){.aromas .aroma{flex-basis:calc(100% + 1px)}}
+  .aroma{background:var(--linho);padding:20px 22px;transition:background .25s;border:1px solid var(--linha);margin:-1px 0 0 -1px}
   .aroma:hover{background:var(--papel)}
   .aroma b{font-family:'Playfair Display',serif;font-size:18px;font-weight:500;display:block;margin-bottom:5px}
   .aroma small{font-size:13px;color:var(--tinta-2);line-height:1.62;display:block}
 
   /* ---------- produtos ---------- */
-  .produtos{display:grid;grid-template-columns:1fr;gap:1px;background:var(--linha);border:1px solid var(--linha);margin-top:clamp(36px,5vw,52px)}
+  .produtos{display:grid;grid-template-columns:1fr;padding:1px 0 0 1px;margin-top:clamp(36px,5vw,52px)}
   @media(min-width:760px){.produtos{grid-template-columns:1fr 1fr}}
-  .produto{background:var(--papel);padding:24px;display:flex;flex-direction:column;gap:14px}
+  .produto{background:var(--papel);padding:24px;display:flex;flex-direction:column;gap:14px;border:1px solid var(--linha);margin:-1px 0 0 -1px}
   .produto-topo{display:flex;align-items:baseline;gap:14px}
   .produto-nome{font-family:'Playfair Display',serif;font-size:20px;font-weight:500;line-height:1.3}
   .produto-medida{font-size:11.5px;color:var(--tinta-2);letter-spacing:.06em;white-space:nowrap}
@@ -171,7 +220,11 @@
   .add svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.9}
 
   /* ---------- kits ---------- */
-  .kits{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:26px;margin-top:clamp(36px,5vw,52px)}
+  /* mesma regra dos aromas: fileiras equilibradas, sobra centralizada (5 = 3+2) */
+  .kits{display:flex;flex-wrap:wrap;justify-content:center;gap:26px;margin-top:clamp(36px,5vw,52px)}
+  .kits .kit{flex:0 0 calc((100% - (var(--cols,3) - 1) * 26px) / var(--cols,3))}
+  @media(max-width:1023px){.kits .kit{flex-basis:calc((100% - 26px) / 2)}}
+  @media(max-width:700px){.kits .kit{flex-basis:100%}}
   .kit{background:var(--papel);box-shadow:var(--sombra);display:flex;flex-direction:column;position:relative;transition:transform .3s}
   .kit:hover{transform:translateY(-4px)}
   .kit img{width:100%;height:auto;aspect-ratio:5/4;object-fit:cover}
@@ -323,6 +376,15 @@
     body{padding-bottom:84px}
   }
 
+  /* ---------- botão flutuante do WhatsApp ---------- */
+  .zap-fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:65;
+    display:flex;align-items:center;gap:9px;background:#25D366;color:#fff;text-decoration:none;
+    padding:0 20px 0 16px;min-height:52px;border-radius:99px;font-size:14px;font-weight:600;
+    box-shadow:0 8px 24px rgba(0,0,0,.22);transition:transform .2s}
+  .zap-fab:hover{transform:translateY(-2px)}
+  .zap-fab svg{width:24px;height:24px;fill:currentColor;flex-shrink:0}
+  @media(max-width:880px){.zap-fab{bottom:calc(84px + env(safe-area-inset-bottom))}}
+
   /* ---------- rodapé ---------- */
   /* fecho claro e centralizado, no lugar da faixa escura de tres colunas */
   footer{background:var(--linho-2);border-top:1px solid var(--linha);
@@ -372,7 +434,7 @@
       <a href="#aromas">Aromas</a>
       <a href="#produtos">Produtos</a>
       <a href="#kits">Kits</a>
-      <a href="#lembrancinhas">Lembrancinhas</a>
+      <a href="#lembrancinhas" hidden style="display:none">Lembrancinhas</a>
       <a href="#contato">Contato</a>
     </nav>
     <button class="btn-sacola" onclick="abrirSacola()" aria-label="Abrir a sacola de compras">
@@ -383,6 +445,34 @@
 </header>
 
 <!-- ================= HERO ================= -->
+<section class="abre" aria-label="Talité, saboaria artesanal">
+  <div class="abre-fixo">
+    <span class="abre-num e">Nº 01</span><span class="abre-num d">Uberaba · MG</span>
+    <div class="abre-titulo">
+      <div class="rotulo">Saboaria artesanal</div>
+      <h1>O banho como<br><em>pequeno ritual</em></h1>
+    </div>
+    <div class="abre-foto">
+      <picture>
+        <source media="(max-width:880px)" srcset="img/galeria/g14.jpg">
+        <img src="img/p04.jpg" alt="Kit Bem-Estar da Talité com sais de banho, sabonete líquido, bucha vegetal e sabonete em barra" fetchpriority="high">
+      </picture>
+    </div>
+    <div class="abre-frases" aria-live="polite">
+      <p class="abre-frase"><b>Feito à mão,<br><em>um a um</em></b><span>Pequenos lotes · sem linha de produção</span></p>
+      <p class="abre-frase"><b>Dezoito <em>aromas</em></b><span>Florais · cítricos · energéticos</span></p>
+      <div class="abre-frase"><b>Escolha o <em>seu</em></b>
+        <div class="hero-acoes">
+          <a class="btn btn-linho" href="#produtos">Ver produtos
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-claro" href="#kits">Kits para presente</a>
+        </div>
+      </div>
+    </div>
+    <div class="abre-dica" aria-hidden="true">Role<i></i></div>
+  </div>
+</section>
+
 <section class="hero">
   <div class="folha" style="top:6%;right:-70px;width:250px;transform:rotate(14deg)" data-vel="0.16">
     <svg viewBox="0 0 100 200" fill="currentColor"><path d="M50 0C30 40 12 74 12 112c0 34 17 62 38 88 21-26 38-54 38-88C88 74 70 40 50 0zm0 34c13 26 24 51 24 78 0 24-11 45-24 63-13-18-24-39-24-63 0-27 11-52 24-78z"/></svg>
@@ -392,27 +482,6 @@
   </div>
 
   <div class="env">
-    <div class="hero-topo rv">
-      <div class="rotulo">Saboaria artesanal · Uberaba</div>
-      <h1>O banho como <em>pequeno ritual</em></h1>
-      <p class="hero-sub">Sabonetes feitos à mão, um a um, com dezoito aromas entre florais, cítricos e energéticos. Sem pressa, sem linha de produção, do jeito que cuidado de verdade pede.</p>
-      <div class="hero-acoes">
-        <a class="btn btn-verde" href="#produtos">
-          Ver produtos
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-        <a class="btn btn-linha" href="#kits">Kits para presente</a>
-      </div>
-    </div>
-
-    <figure class="hero-foto rv">
-      <img src="img/p04.jpg" alt="Kit Bem-Estar da Talité com sais de banho, sabonete líquido, bucha vegetal e sabonete em barra" width="1280" height="1024" fetchpriority="high">
-      <figcaption class="hero-legenda">
-        <b>Kit Bem-Estar</b><i></i>
-        <span>sais de banho, sabonete líquido, bucha vegetal e barra</span><i></i>
-        <span>montado à mão</span>
-      </figcaption>
-    </figure>
   </div>
 
   <div class="env">
@@ -472,7 +541,7 @@
   <div class="env">
     <div class="rv">
       <div class="rotulo">Prontos para presentear</div>
-      <h2 class="titulo">Kits que já saem <em>embalados</em></h2>
+      <h2 class="titulo">Kits para <em>presentear</em></h2>
       <p class="intro">Caixa, laço e cartão inclusos. É só entregar.</p>
     </div>
     <div class="kits" id="lista-kits"></div>
@@ -480,7 +549,7 @@
 </section>
 
 <!-- ================= LEMBRANCINHAS ================= -->
-<section id="lembrancinhas">
+<section id="lembrancinhas" hidden style="display:none"><!-- oculto por enquanto: tirar hidden/style para voltar -->
   <div class="env">
     <div class="rv">
       <div class="rotulo">Para festas e eventos</div>
@@ -574,7 +643,7 @@
       <a id="rod-insta" href="#" target="_blank" rel="noopener">Instagram</a><em>·</em>
       <a href="#produtos">Produtos</a><em>·</em>
       <a href="#kits">Kits</a><em>·</em>
-      <a href="#lembrancinhas">Lembrancinhas</a>
+      <a href="#lembrancinhas" hidden style="display:none">Lembrancinhas</a>
     </nav>
 
     <div><a class="rod-fone" id="rod-tel" href="#">—</a></div>
@@ -606,6 +675,11 @@
   </div>
 </aside>
 
+<a class="zap-fab" id="zap-fab" href="#" target="_blank" rel="noopener" aria-label="Fale com a Talité no WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.98L2 22l5.17-1.5A9.9 9.9 0 1 0 12.04 2zm5.8 14.1c-.25.7-1.45 1.33-2 1.4-.52.07-1.17.1-1.9-.12a17 17 0 0 1-1.72-.64c-3.03-1.3-5-4.37-5.15-4.57-.15-.2-1.23-1.64-1.23-3.13 0-1.5.78-2.22 1.06-2.52.28-.3.6-.37.8-.37h.58c.18 0 .43-.07.67.52.25.6.85 2.08.93 2.23.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.38-.45.51-.15.15-.3.3-.13.6.17.3.77 1.27 1.65 2.05 1.13 1 2.08 1.32 2.38 1.46.3.15.47.12.65-.07.17-.2.75-.87.95-1.17.2-.3.4-.25.67-.15.27.1 1.73.82 2.03.97.3.15.5.22.57.35.07.12.07.72-.18 1.42z"/></svg>
+  Fale no WhatsApp
+</a>
+
 <div class="barra-mob">
   <a class="btn btn-linha" href="#produtos">Produtos</a>
   <button class="btn btn-verde" onclick="abrirSacola()" style="flex:1">
@@ -620,6 +694,7 @@
   const esc = t => String(t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
   /* ---------- aromas ---------- */
+  const colunas = n => n <= 4 ? n : (n % 4 === 0 ? 4 : (n % 3 === 0 || n === 5) ? 3 : 4);
   document.getElementById('lista-aromas').innerHTML = AROMAS.map(g => `
     <div class="linha-aroma rv">
       <div class="linha-cab">
@@ -627,7 +702,7 @@
         <span>${g.itens.length} aromas</span>
       </div>
       <p class="linha-resumo">${esc(g.resumo)}</p>
-      <div class="aromas">
+      <div class="aromas" style="--cols:${colunas(g.itens.length)}">
         ${g.itens.map(i => `<div class="aroma"><b>${esc(i.nome)}</b><small>${esc(i.desc)}</small></div>`).join('')}
       </div>
     </div>`).join('');
@@ -654,6 +729,7 @@
     </article>`).join('');
 
   /* ---------- kits ---------- */
+  document.getElementById('lista-kits').style.setProperty('--cols', Math.min(colunas(KITS.length), 3));
   document.getElementById('lista-kits').innerHTML = KITS.map(k => `
     <article class="kit rv">
       ${k.destaque ? '<span class="fita">Mais pedido</span>' : ''}
@@ -703,6 +779,7 @@
   const zap = (msg) => `https://wa.me/${LOJA.whatsapp}?text=${encodeURIComponent(msg)}`;
   document.getElementById('btn-orcamento').href = zap('Olá, Talité! Vim pelo site e quero um orçamento de lembrancinhas personalizadas.');
   document.getElementById('rod-whats').href = zap('Olá, Talité! Vim pelo site.');
+  document.getElementById('zap-fab').href = zap('Olá, Talité! Vim pelo site e quero fazer um pedido.');
   document.getElementById('rod-insta').href = LOJA.instagram;
   const tel = document.getElementById('rod-tel');
   tel.href = zap('Olá, Talité! Vim pelo site.');
@@ -902,6 +979,40 @@
     if(e.key==='Escape') fechar(); if(e.key==='ArrowLeft') mostra(cur-1); if(e.key==='ArrowRight') mostra(cur+1); });
   let x0=null; li.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
   li.addEventListener('touchend',e=>{ if(x0===null) return; const dx=e.changedTouches[0].clientX-x0; if(Math.abs(dx)>50) mostra(cur+(dx<0?1:-1)); x0=null; });
+})();
+/* abertura: a foto cresce conforme a rolagem (sem sequestrar o scroll; só lê a posição) */
+(function(){
+  const sec=document.querySelector('.abre'); if(!sec) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('abre-on');
+  const foto=sec.querySelector('.abre-foto'), tit=sec.querySelector('.abre-titulo'),
+        dica=sec.querySelector('.abre-dica'), nums=sec.querySelectorAll('.abre-num'),
+        frases=[...sec.querySelectorAll('.abre-frase')];
+  const lim=(v,a,b)=>Math.min(b,Math.max(a,v)), suave=t=>1-Math.pow(1-t,3);
+  let pend=false;
+  function quadro(){
+    pend=false;
+    const r=sec.getBoundingClientRect(), total=sec.offsetHeight-innerHeight;
+    const p=lim(-r.top/total,0,1);           // 0 no topo, 1 no fim da abertura
+    const g=suave(lim(p/0.55,0,1));          // crescimento da foto
+    const cel=innerWidth<=880;
+    const t0=cel?44:54, l0=cel?18:35, b0=cel?16:6;
+    foto.style.setProperty('--ct',(t0*(1-g)).toFixed(2)+'%');
+    foto.style.setProperty('--cl',(l0*(1-g)).toFixed(2)+'%');
+    foto.style.setProperty('--cb',(b0*(1-g)).toFixed(2)+'%');
+    const rr=(999*(1-g)).toFixed(0);
+    foto.style.setProperty('--cr',`${rr}px ${rr}px ${(4*(1-g)).toFixed(1)}px ${(4*(1-g)).toFixed(1)}px`);
+    foto.style.setProperty('--z',(1.18-0.18*g).toFixed(3));
+    foto.style.setProperty('--esc',g.toFixed(3));
+    tit.style.opacity=(1-lim(p/0.3,0,1)).toFixed(3);
+    tit.style.transform=`translateY(${(-60*suave(lim(p/0.4,0,1))).toFixed(1)}px) scale(${(1-0.06*g).toFixed(3)})`;
+    dica.style.opacity=p>0.03?0:1; nums.forEach(n=>n.style.opacity=(1-lim(p/0.2,0,1)).toFixed(2));
+    const k=p<0.5?-1:p<0.7?0:p<0.86?1:2;
+    frases.forEach((f,n)=>f.classList.toggle('on',n===k));
+  }
+  const pede=()=>{ if(!pend){pend=true;requestAnimationFrame(quadro);} };
+  addEventListener('scroll',pede,{passive:true}); addEventListener('resize',pede);
+  quadro();
 })();
 </script>
 </body>
