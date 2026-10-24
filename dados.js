@@ -70,7 +70,9 @@ const PRODUTOS = [
   { id:"escalda", nome:"Escalda-pés",          medida:"250 g",  preco:22.90, aroma:true,
     desc:"Alívio para os pés cansados no fim do dia." },
   { id:"sache",   nome:"Sachê Aromático",      medida:"40 g",   preco:14.90, aroma:true,
-    desc:"Perfuma gaveta, armário e carro por semanas." }
+    desc:"Perfuma gaveta, armário e carro por semanas." },
+  { id:"difusor", nome:"Difusor de Aromas",    medida:"a partir de 250 ml", preco:59.90, aPartir:true, aroma:true,
+    desc:"Deixa a casa perfumada com o aroma que você escolher." }
 ];
 
 const KITS = [
@@ -106,6 +108,7 @@ const OCASIOES = ["Casamentos", "Chá de bebê", "Batizados", "Aniversários", "
 
 /* Galeria (carrossel). Troque, apague ou reordene as fotos aqui. */
 const GALERIA = [
+  { src:"img/galeria/g14.jpg", r:0.8056, alt:"Difusor de aromas Talité em frasco verde com tampa dourada e varetas" },
   { src:"img/galeria/g01.jpg", r:1.0, alt:"Sabonete artesanal com flores secas ao lado de um pote de sais de banho Talité" },
   { src:"img/galeria/g02.jpg", r:0.75, alt:"Caixa Talité com sabonete, frasco de sais de banho com etiqueta e bucha vegetal" },
   { src:"img/galeria/g03.jpg", r:0.75, alt:"Quatro sabonetes em forma de rosa sobre tábua de madeira" },
