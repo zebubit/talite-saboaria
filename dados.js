@@ -3,7 +3,7 @@
 
 const LOJA = {
   nome: "Talité",
-  assinatura: "Essência de Talité",
+  assinatura: "Essência de Talita",
   whatsapp: "5534998596811",
   whatsappVisivel: "(34) 99859-6811",
   instagram: "https://instagram.com/talite.saboaria",
