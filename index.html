@@ -235,6 +235,8 @@
   .kit-pe{display:flex;align-items:center;gap:12px;margin-top:6px}
   .kit-preco{font-family:'Playfair Display',serif;font-size:25px;color:var(--verde);font-variant-numeric:tabular-nums}
   .kit-pe .add{margin-left:auto}
+  .kits.novidades{max-width:760px;margin-left:auto;margin-right:auto}
+  .novidades .kit img{aspect-ratio:4/5}
   .fita{position:absolute;top:0;right:0;background:var(--ouro);color:#fff;font-size:10.5px;
     letter-spacing:.14em;text-transform:uppercase;padding:7px 14px;font-weight:500;z-index:1}
 
@@ -432,6 +434,7 @@
     <a class="marca" href="#">TALITÉ<span>Essência de Talité</span></a>
     <nav>
       <a href="#aromas">Aromas</a>
+      <a href="#novidades">Novidades</a>
       <a href="#produtos">Produtos</a>
       <a href="#kits">Kits</a>
       <a href="#lembrancinhas" hidden style="display:none">Lembrancinhas</a>
@@ -518,6 +521,18 @@
       <p class="intro">Cada barra pode ser feita em qualquer um dos dezoito aromas. Você escolhe na hora de montar a sacola.</p>
     </div>
     <div id="lista-aromas"></div>
+  </div>
+</section>
+
+<!-- ================= NOVIDADES ================= -->
+<section id="novidades">
+  <div class="env">
+    <div class="rv">
+      <div class="rotulo">Acabou de chegar</div>
+      <h2 class="titulo">Novidades <em>no catálogo</em></h2>
+      <p class="intro">Sabonetes massageadores, com relevos que fazem massagem na pele enquanto limpam.</p>
+    </div>
+    <div class="kits novidades" id="lista-novidades"></div>
   </div>
 </section>
 
@@ -786,11 +801,31 @@
   tel.textContent = LOJA.whatsappVisivel;
   document.getElementById('ano').textContent = new Date().getFullYear();
 
+  /* ---------- novidades ---------- */
+  document.getElementById('lista-novidades').style.setProperty('--cols', Math.min(colunas(NOVIDADES.length), 3));
+  document.getElementById('lista-novidades').innerHTML = NOVIDADES.map(n => `
+    <article class="kit rv">
+      <span class="fita">Novidade</span>
+      <img loading="lazy" src="${n.foto}" alt="${esc(n.nome)} da Talité" width="800" height="1000">
+      <div class="kit-txt">
+        <h3>${esc(n.nome)}</h3>
+        <div class="kit-inclui">Massageador · ${esc(n.medida)}</div>
+        <p class="kit-desc">${esc(n.desc)}</p>
+        <div class="kit-pe">
+          <span class="kit-preco">${dinheiro(n.preco)}</span>
+          <button class="add" data-tipo="novidade" data-id="${n.id}">
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Adicionar
+          </button>
+        </div>
+      </div>
+    </article>`).join('');
+
   /* ================= SACOLA ================= */
   let sacola = [];
 
   function achar(tipo, id){
     if(tipo === 'produto') return PRODUTOS.find(p => p.id === id);
+    if(tipo === 'novidade') return NOVIDADES.find(n => n.id === id);
     return KITS.find(k => k.id === id);
   }
 

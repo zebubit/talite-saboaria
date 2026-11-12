@@ -75,6 +75,14 @@ const PRODUTOS = [
     desc:"Deixa a casa perfumada com o aroma que você escolher." }
 ];
 
+/* Novidades: aparecem com foto no topo do catálogo e entram na sacola. */
+const NOVIDADES = [
+  { id:"n-cappuccino", nome:"Sabonete de Cappuccino", medida:"100 g", preco:19.90, foto:"img/n-cappuccino.jpg",
+    desc:"Aroma intenso de café com leite, nutre a pele e os relevos massageiam durante o banho." },
+  { id:"n-melancia", nome:"Sabonete de Melancia", medida:"100 g", preco:19.90, foto:"img/n-melancia.jpg",
+    desc:"Frutado e refrescante, com relevos que massageiam a pele durante o banho." }
+];
+
 const KITS = [
   { id:"k-delicado", nome:"Kit Delicado", preco:29.90,  inclui:"2 sabonetes + laço",
     desc:"O presente simples que agrada sempre. Dois sabonetes escolhidos, embalados com laço.",
